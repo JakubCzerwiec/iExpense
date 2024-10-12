@@ -9,13 +9,13 @@ import SwiftUI
 
 
 struct AddView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss // this needs to be added for dismiss() to work (line 40)
 
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
     
-    var expenses: Expenses
+    var expenses: Expenses // creating empty arr of expenses conforming to Expenses class
     
     let types = ["Bussines", "Personal"]
     
@@ -29,7 +29,7 @@ struct AddView: View {
                         Text($0)
                     }
                 }
-                TextField("Amount", value: $amount, format: .currency(code: "USD"))
+                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")
@@ -37,7 +37,7 @@ struct AddView: View {
                 Button("Save") {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
                     expenses.items.append(item)
-                    dismiss()
+                    dismiss() // exiting view when tapped
                 }
             }
         }
@@ -45,5 +45,5 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(expenses: Expenses())
+    AddView(expenses: Expenses()) // expenses: Expenses() is like 'import'
 }
