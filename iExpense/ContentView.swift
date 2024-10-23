@@ -78,13 +78,23 @@ struct ContentView: View {
                     .onDelete(perform: removeItems)
                 }
 
+
             }
             .navigationTitle("iExpense")
             .toolbar {
-                Button("Add epxence", systemImage: "plus") {
-                    showingAddExpense = true // changing condition for showing second View
+                NavigationLink {
+                    AddView(expenses: expenses)
+                } label: {
+                    Image(systemName: "plus")
                 }
+//                Button("Add epxence", systemImage: "plus") {
+//                    showingAddExpense = true // changing condition for showing second View
+//
+//                }
             }
+
+            
+            
             .sheet(isPresented: $showingAddExpense) {
                 AddView(expenses: expenses)  // showing second view and sends data from expenses var
             }
